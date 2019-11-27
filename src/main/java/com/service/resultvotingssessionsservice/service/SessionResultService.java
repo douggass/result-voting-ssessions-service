@@ -4,7 +4,6 @@ import java.util.Optional;
 import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import com.service.resultvotingssessionsservice.dto.ResultDto;
@@ -22,11 +21,9 @@ public class SessionResultService {
 	private static final Integer ZERO = 0;
 
 	// TODO: implement method call to fetch more session information
-	public ResponseEntity<SessionResutDto> getResult(final UUID uuid) {
-		return Optional.ofNullable(resultRepository.findByUuid(uuid))
-				.map(item -> SessionResutDto.builder().id(item.getUuid()).negativeVotes(item.getNo())
-						.positiveVotes(item.getYes()).build())
-				.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());
+	public SessionResutDto getResult(final UUID uuid) {
+		return Optional.ofNullable(resultRepository.findByUuid(uuid)).map(item -> SessionResutDto.builder()
+				.id(item.getUuid()).negativeVotes(item.getNo()).positiveVotes(item.getYes()).build()).orElse(null);
 	}
 
 	// TODO: refactor implementation

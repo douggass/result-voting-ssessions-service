@@ -9,8 +9,6 @@ import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 
 import com.service.resultvotingssessionsservice.dto.ResultDto;
 import com.service.resultvotingssessionsservice.dto.SessionResutDto;
@@ -36,12 +34,7 @@ public class SessionResultServiceTest {
 		given(resultRepository.findByUuid(ANY_UUID))
 				.willReturn(ResultDto.builder().uuid(ANY_UUID).no(DECISION_NO).yes(DECISION_YES).build());
 
-		ResponseEntity<SessionResutDto> response = sessionResultService.getResult(ANY_UUID);
-
-		Assertions.assertThat(response.getStatusCodeValue()).isEqualTo(HttpStatus.OK.value());
-
-		SessionResutDto sessionResult = response.getBody();
-
+		SessionResutDto sessionResult = sessionResultService.getResult(ANY_UUID);
 		Assertions.assertThat(sessionResult.getPositiveVotes()).isEqualTo(DECISION_YES);
 		Assertions.assertThat(sessionResult.getNegativeVotes()).isEqualTo(DECISION_NO);
 		Assertions.assertThat(sessionResult.getId()).isEqualTo(ANY_UUID);
