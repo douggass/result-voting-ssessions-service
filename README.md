@@ -8,6 +8,7 @@ See the technical diagram of the architecture: https://www.lucidchart.com/docume
 
 2. Maven - 3.x.x
 
+2. Lombok plugin - 1.x.x
 
 ## Steps to Setup
 
